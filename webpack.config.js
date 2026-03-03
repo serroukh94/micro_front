@@ -52,6 +52,7 @@ module.exports = {
       remotes: {
         mfeHeader: 'mfeHeader@http://localhost:3001/remoteEntry.js',
         mfeLobby: 'mfeLobby@http://localhost:3002/remoteEntry.js',
+        mfeCatalog: 'mfeCatalog@http://localhost:3003/remoteEntry.js',
       },
 
       // TODO 3: Configurer les dependances partagees
