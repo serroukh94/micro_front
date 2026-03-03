@@ -1,21 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import eventBus from 'shared/eventBus';
 import './Navbar.css';
 
-function Navbar({ notifications }) {
+function Navbar() {
+  const [notifications, setNotifications] = useState(0);
+
+  useEffect(() => {
+    // Écoute l'événement 'game:joined' pour incrémenter le badge
+    const unsubscribe = eventBus.on('game:joined', () => {
+      setNotifications(prev => prev + 1);
+    });
+    // Cleanup React : se désabonner au démontage
+    return unsubscribe;
+  }, []);
+
   return (
     <nav className="navbar">
       <div className="navbar-brand">
         <span className="logo">PixelArena</span>
+        <span className="mfe-badge">MFE</span>
       </div>
 
       <div className="navbar-menu">
-        <button className="button">Lobby</button>
-        <button className="button">Scores</button>
+        <button className="nav-button">Lobby</button>
+        <button className="nav-button">Scores</button>
       </div>
 
       <div className="navbar-user">
         <span className="username">Joueur_42</span>
-        <button className="button notification-btn">
+        <button className="nav-button notification-btn">
           {notifications > 0 && <span className="badge">{notifications}</span>}
         </button>
       </div>
