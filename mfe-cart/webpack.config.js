@@ -7,13 +7,12 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[contenthash].js',
-    publicPath: 'http://localhost:3000/',
+    publicPath: 'http://localhost:3004/',
     clean: true,
   },
   devServer: {
-    port: 3000,
+    port: 3004,
     hot: true,
-    open: true,
     historyApiFallback: true,
     headers: {
       'Access-Control-Allow-Origin': '*',
@@ -40,23 +39,16 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      shared: path.resolve(__dirname, './shared'),
+      shared: path.resolve(__dirname, '../shared'),
     },
   },
   plugins: [
     new ModuleFederationPlugin({
-      // TODO 1: Donner un nom au Shell
-      name: 'shell',
-
-      // TODO 2: Configurer les remotes (vide pour l'instant)
-      remotes: {
-        mfeHeader: 'mfeHeader@http://localhost:3001/remoteEntry.js',
-        mfeLobby: 'mfeLobby@http://localhost:3002/remoteEntry.js',
-        mfeCatalog: 'mfeCatalog@http://localhost:3003/remoteEntry.js',
-        mfeCart: 'mfeCart@http://localhost:3004/remoteEntry.js',
+      name: 'mfeCart',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './Cart': './src/components/Cart',
       },
-
-      // TODO 3: Configurer les dependances partagees
       shared: {
         react: { singleton: true, requiredVersion: '^18.2.0' },
         'react-dom': { singleton: true, requiredVersion: '^18.2.0' },
