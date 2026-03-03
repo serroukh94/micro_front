@@ -7,13 +7,12 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[contenthash].js',
-    publicPath: 'http://localhost:3000/',
+    publicPath: 'http://localhost:3001/',
     clean: true,
   },
   devServer: {
-    port: 3000,
+    port: 3001,
     hot: true,
-    open: true,
     historyApiFallback: true,
     headers: {
       'Access-Control-Allow-Origin': '*',
@@ -42,15 +41,13 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      // TODO 1: Donner un nom au Shell
-      name: 'shell',
-
-      // TODO 2: Configurer les remotes (vide pour l'instant)
-      remotes: {
-        mfeHeader: 'mfeHeader@http://localhost:3001/remoteEntry.js',
-      },
-
-      // TODO 3: Configurer les dependances partagees
+      // TODO 1: Nom du micro-frontend
+      name: 'mfeHeader',
+      // TODO 2: Fichier d'entrée exposé
+      filename: 'remoteEntry.js',
+      // TODO 3: Composants exposés
+      exposes: { './Navbar': './src/components/Navbar' },
+      // TODO 4: Dépendances partagées
       shared: {
         react: { singleton: true, requiredVersion: '^18.2.0' },
         'react-dom': { singleton: true, requiredVersion: '^18.2.0' },
