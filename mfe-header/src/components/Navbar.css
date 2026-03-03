@@ -75,9 +75,14 @@
   background: #2563eb;
 }
 
-.notification-btn {
+.notification-btn,
+.cart-btn {
   position: relative;
   padding: 10px 16px;
+}
+
+.cart-badge {
+  background: #10b981;
 }
 
 .badge {
