@@ -38,6 +38,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      shared: path.resolve(__dirname, '../shared'),
+    },
   },
   plugins: [
     new ModuleFederationPlugin({
